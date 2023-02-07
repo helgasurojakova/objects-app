@@ -1,26 +1,68 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Button, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
+import React, { useEffect, useState } from 'react'
+import { connect , useDispatch } from 'react-redux'
+import { CreateObject } from './CreateObject'
+import { EditWindow } from './EditObject'
+import { GET_DATA } from './reducer'
+import { ObjectState, State, Store } from './types'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const objectsState = (state: Store) => {
+  return {
+    data: state.objects.data,
+  }
 }
 
-export default App;
+function App(state: State) {
+  const dispatch = useDispatch()
+  const { data } = state
+  const [object, setObject] = useState<ObjectState>({
+    id: "",
+    name: "",
+    address: "",
+    description: "",
+    dateCommissioning: "",
+    image: "",
+  })
+
+  useEffect(() => {
+    dispatch({ type: GET_DATA })
+  }, [])
+
+  const handleClick = (item: ObjectState) => {
+    setObject(item)
+  }
+
+  return (
+    <div style={{display: 'flex', justifyContent: 'space-between', margin: '0px'}}>
+        <TableContainer w='50%'>
+          <CreateObject/>
+          <Table variant='simple'>
+            <Thead>
+              <Tr>
+                <Th>Наименование</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {data.map((item: ObjectState) => { 
+                return (
+                  <Tr key={item.id} onClick={() => handleClick(item)}>
+                    <Td>{item.name}</Td>
+                  </Tr>
+                )
+              })}
+            </Tbody>
+          </Table>
+        </TableContainer>
+        <EditWindow 
+            id={object.id}
+            name={object.name}
+            address={object.address}
+            description={object.description}
+            dateCommissioning={object.dateCommissioning}
+            image={object.image}
+          />
+    </div>
+  )
+}
+
+export default connect(objectsState)(App)
