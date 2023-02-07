@@ -1,20 +1,14 @@
 import { Button, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
-import { connect , useDispatch } from 'react-redux'
 import { CreateObject } from './CreateObject'
 import { EditWindow } from './EditObject'
-import { GET_DATA } from './reducer'
-import { ObjectState, State, Store } from './types'
+import { ObjectState } from './types'
+import { observer } from 'mobx-react-lite'
+import { ObjectStore } from './store'
 
-const objectsState = (state: Store) => {
-  return {
-    data: state.objects.data,
-  }
-}
+const objectsStore = new ObjectStore()
 
-function App(state: State) {
-  const dispatch = useDispatch()
-  const { data } = state
+function App() {
   const [object, setObject] = useState<ObjectState>({
     id: "",
     name: "",
@@ -24,18 +18,18 @@ function App(state: State) {
     image: "",
   })
 
-  useEffect(() => {
-    dispatch({ type: GET_DATA })
-  }, [])
-
   const handleClick = (item: ObjectState) => {
     setObject(item)
+  }
+
+  const deleteHandler = (id: string) => {
+    objectsStore.delete(id)
   }
 
   return (
     <div style={{display: 'flex', justifyContent: 'space-between', margin: '0px'}}>
         <TableContainer w='50%'>
-          <CreateObject/>
+          <CreateObject objectsStore={objectsStore}/>
           <Table variant='simple'>
             <Thead>
               <Tr>
@@ -43,10 +37,16 @@ function App(state: State) {
               </Tr>
             </Thead>
             <Tbody>
-              {data.map((item: ObjectState) => { 
+            {objectsStore.objects.map((item: ObjectState) => { 
                 return (
-                  <Tr key={item.id} onClick={() => handleClick(item)}>
-                    <Td>{item.name}</Td>
+                  <Tr key={item.id}>
+                    <Td onClick={() => handleClick(item)}>{item.name}</Td>
+                    <Td w={0}>
+                      <Button 
+                        onClick={()=> deleteHandler(item.id)}>
+                        Удалить
+                      </Button>
+                    </Td>
                   </Tr>
                 )
               })}
@@ -65,4 +65,4 @@ function App(state: State) {
   )
 }
 
-export default connect(objectsState)(App)
+export default observer(App)
