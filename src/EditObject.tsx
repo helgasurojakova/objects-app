@@ -1,4 +1,4 @@
-import { Input, Textarea, Image, Stack, FormControl, FormLabel, Heading, Button } from "@chakra-ui/react"
+import { Input, Textarea, Image, Stack, FormControl, FormLabel, Heading, Button, Tooltip } from "@chakra-ui/react"
 import { observer } from "mobx-react-lite"
 import React, { useEffect } from "react"
 import { useState } from "react"
@@ -27,13 +27,6 @@ export const EditObject = observer(({ id }: { id: string }) => {
     setState((v) => ({...v, [key]: event.target.value}))
   }
 
-  const handleImageInputChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    if (event.target.files) {
-      const src = URL.createObjectURL(event.target.files[0])
-      setState({...state, image: src})
-    }
-  }
-
   const saveHandler = () => {
     if (object) {
       object.edit(state.name, state.address, state.description, state.dateCommissioning, state.image)
@@ -53,11 +46,16 @@ export const EditObject = observer(({ id }: { id: string }) => {
         <FormLabel>Дата ввода в эксплуатацию</FormLabel>
         <Input type="date" value={state.dateCommissioning || ''} onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleChange(event, 'dateCommissioning')}/>
         <FormLabel>Изображение</FormLabel>
-        <Input
-          type='file'
-          accept="image/*"
-          onChange={handleImageInputChange}
-        />
+        <Tooltip label='Вставьте ссылку на изображение'>
+          <Input
+            type='url'
+            value={state.image || ''}
+            placeholder="https://image.com"
+            pattern="https://.*"
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleChange(event, 'image')}
+          />
+        </Tooltip>
+        
         {state.image &&
           <>
           <FormLabel>Предпросмотр:</FormLabel>
