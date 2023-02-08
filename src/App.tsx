@@ -21,6 +21,7 @@ import { ObjectStore } from './store'
 export const objectsStore = new ObjectStore()
 
 function App() {
+  const objectsSortedByName = objectsStore.sortObjectsByName()
   const [objectId, setObjectId] = useState('')
 
   const handleClick = (id: string) => {
@@ -44,7 +45,7 @@ function App() {
               </Tr>
             </Thead>
             <Tbody>
-            {objectsStore.objects.map((item: ObjectType) => { 
+            {objectsSortedByName.map((item: ObjectType) => { 
                 return (
                   <Tr key={item.id} className={`object-row${objectId === item.id ? '_active' : ''}`}>
                     <Td onClick={() => handleClick(item.id)}>{item.name}</Td>

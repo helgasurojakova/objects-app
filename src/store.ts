@@ -51,6 +51,15 @@ class ObjectStore {
     makeAutoObservable(this)
   }
 
+  sortObjectsByName() {
+    const sortedObjects = this.objects.slice().sort((a, b) => {
+      if (a.name < b.name) return -1
+      if (a.name > b.name) return 1
+      return 0
+    })
+    return sortedObjects
+  }
+
   delete (id: string) {
     const newObjects = this.objects.filter(el => {
       return el.id !== id
