@@ -1,7 +1,7 @@
 import { Button, Table, TableContainer, Tbody, Td, Th, Thead, Tr, Heading, Center } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { CreateObject } from './CreateObject'
-import { EditWindow } from './EditObject'
+import { EditObject } from './EditObject'
 import { ObjectState } from './types'
 import { observer } from 'mobx-react-lite'
 import { ObjectStore } from './store'
@@ -55,7 +55,7 @@ function App() {
           </Table>
         </TableContainer>
         {object.id ?
-          <EditWindow 
+          <EditObject 
             id={object.id}
             name={object.name}
             address={object.address}
