@@ -38,8 +38,8 @@ export const EditWindow = (props: ObjectState) => {
   }, [props])
 
   return (
-    <FormControl w='50%' borderWidth='1px' p='6'>
-      <Heading mb={10}>Свойства объекта</Heading>
+    <FormControl w='50%' borderWidth='1px' p='6' h='100vh' style={{overflowY: 'auto'}}>
+      <Heading mb={5} size='md'>Свойства объекта</Heading>
       <Stack spacing={3}>
         <FormLabel>Наименование</FormLabel>
         <Input type="text" value={state.name} onChange={(event) => handleChange(event, 'name')}/>

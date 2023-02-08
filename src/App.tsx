@@ -1,4 +1,4 @@
-import { Button, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
+import { Button, Table, TableContainer, Tbody, Td, Th, Thead, Tr, Heading, Center } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { CreateObject } from './CreateObject'
 import { EditWindow } from './EditObject'
@@ -28,12 +28,13 @@ function App() {
 
   return (
     <div style={{display: 'flex', justifyContent: 'space-between', margin: '0px'}}>
-        <TableContainer w='50%'>
+        <TableContainer w='50%' h='100vh' style={{overflowY: 'auto'}}>
           <CreateObject objectsStore={objectsStore}/>
           <Table variant='simple'>
             <Thead>
               <Tr>
                 <Th>Наименование</Th>
+                <Th></Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -53,7 +54,8 @@ function App() {
             </Tbody>
           </Table>
         </TableContainer>
-        <EditWindow 
+        {object.id ?
+          <EditWindow 
             id={object.id}
             name={object.name}
             address={object.address}
@@ -61,6 +63,11 @@ function App() {
             dateCommissioning={object.dateCommissioning}
             image={object.image}
           />
+          :
+          <Center w='50%' borderWidth='1px' height='100vh'>
+            <Heading size='md'>Выберите объект для редактирования.</Heading>
+          </Center>
+        }
     </div>
   )
 }
