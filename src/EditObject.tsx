@@ -1,9 +1,20 @@
-import { Input, Textarea, Image, Stack, FormControl, FormLabel, Heading, Button, Tooltip } from "@chakra-ui/react"
-import { observer } from "mobx-react-lite"
-import React, { useEffect } from "react"
-import { useState } from "react"
-import { objectsStore } from "./App"
-import { ObjectType } from "./types"
+import { 
+  Input, 
+  Textarea, 
+  Image, 
+  Stack, 
+  FormControl, 
+  FormLabel, 
+  Heading, 
+  Button, 
+  Tooltip
+} from '@chakra-ui/react'
+
+import { observer } from 'mobx-react-lite'
+import React, { useEffect } from 'react'
+import { useState } from 'react'
+import { objectsStore } from './App'
+import { ObjectType } from './types'
 
 export const EditObject = observer(({ id }: { id: string }) => {
   const object = objectsStore.getObjectById(id)
@@ -29,7 +40,13 @@ export const EditObject = observer(({ id }: { id: string }) => {
 
   const saveHandler = () => {
     if (object) {
-      object.edit(state.name, state.address, state.description, state.dateCommissioning, state.image)
+      object.edit(
+        state.name, 
+        state.address, 
+        state.description, 
+        state.dateCommissioning, 
+        state.image
+      )
     }
   }
 
@@ -55,7 +72,6 @@ export const EditObject = observer(({ id }: { id: string }) => {
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleChange(event, 'image')}
           />
         </Tooltip>
-        
         {state.image &&
           <>
           <FormLabel>Предпросмотр:</FormLabel>

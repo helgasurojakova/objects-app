@@ -1,4 +1,16 @@
-import { Button, Table, TableContainer, Tbody, Td, Th, Thead, Tr, Heading, Center } from '@chakra-ui/react'
+import { 
+  Button, 
+  Table, 
+  TableContainer, 
+  Tbody, 
+  Td, 
+  Th, 
+  Thead, 
+  Tr, 
+  Heading, 
+  Center 
+} from '@chakra-ui/react'
+
 import React, { useEffect, useState } from 'react'
 import { CreateObject } from './CreateObject'
 import { EditObject } from './EditObject'
@@ -10,17 +22,6 @@ export const objectsStore = new ObjectStore()
 
 function App() {
   const [objectId, setObjectId] = useState('')
-
-  useEffect(() => {
-    const rows = document.querySelectorAll('.object-row')
-
-    rows.forEach((row) => {
-      row.addEventListener('click', () => {
-        rows.forEach((r) => r.classList.remove('active'))
-        row.classList.add('active')
-      })
-    })
-  }, [objectId])
 
   const handleClick = (id: string) => {
     setObjectId(id)
@@ -45,7 +46,7 @@ function App() {
             <Tbody>
             {objectsStore.objects.map((item: ObjectType) => { 
                 return (
-                  <Tr key={item.id} className="object-row">
+                  <Tr key={item.id} className={`object-row${objectId === item.id ? '_active' : ''}`}>
                     <Td onClick={() => handleClick(item.id)}>{item.name}</Td>
                     <Td w={0}>
                       <Button 

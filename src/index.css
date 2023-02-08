@@ -1,8 +1,8 @@
-.object-row.active {
+.object-row_active {
   background-color: #b4d1ed;
 }
 
-.object-row.active:hover {
+.object-row_active:hover {
   background-color: #b4d1ed;
 }
 

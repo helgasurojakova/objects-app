@@ -1,18 +1,18 @@
 import {
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
-    Button,
-    FormControl,
-    FormLabel,
-    Input,
-  } from '@chakra-ui/react'
-
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  Button,
+  FormControl,
+  FormLabel,
+  Input
+} from '@chakra-ui/react'
 import { useDisclosure } from '@chakra-ui/react'
+
 import React, { useState } from 'react'
 import { ObjectStore } from './store'
 
