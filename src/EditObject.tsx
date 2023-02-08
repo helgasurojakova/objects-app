@@ -42,7 +42,7 @@ export const EditObject = observer(({ id }: { id: string }) => {
 
   return (
     <FormControl w='50%' borderWidth='1px' p='6' h='100vh' style={{overflowY: 'auto'}}>
-      <Heading mb={5} size='md'>Свойства объекта</Heading>
+      <Heading mb={5} size='md'>Свойства объекта {state.name}</Heading>
       <Stack spacing={3}>
         <FormLabel>Наименование</FormLabel>
         <Input type="text" value={state.name || ''} onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleChange(event, 'name')}/>

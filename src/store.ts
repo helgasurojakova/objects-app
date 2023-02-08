@@ -33,8 +33,20 @@ class ObjectStore {
 
   constructor() {
     this.objects = [
-      new Object('test1', 'test1'),
-      new Object('test2', 'test2'),
+      new Object(
+        'ЖК «Кранц - Престиж»', 
+        'Калининградская область, Зеленоградск, ул. Тургенева',
+        'Многоквартирные жилые дома по улице Тургенева',
+        '2023-08-12',
+        'https://cdn-p.cian.site/images/61/000/631/krancprestizh-zelenogradsk-jk-1360001608-10.jpg'
+      ),
+      new Object(
+        'Особняк в Светлогорске', 
+        'Калининградская область, Светлогорск, ул. Курортная',
+        'Коттедж рядом с историческим центром Светлогорска',
+        '2023-04-07',
+        'https://kgd.ru/media/k2/items/cache/9a96615feeec1bd8b0065dd4cd9cefa1_XL.jpg',
+      ),
     ]
     makeAutoObservable(this)
   }
