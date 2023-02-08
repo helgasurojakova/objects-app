@@ -35,6 +35,14 @@ function App() {
 
   const deleteHandler = (id: string) => {
     objectsStore.delete(id)
+    setObject({
+      id: "",
+      name: "",
+      address: "",
+      description: "",
+      dateCommissioning: "",
+      image: "",
+    })
   }
 
   return (
