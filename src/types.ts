@@ -1,6 +1,6 @@
 export type ObjectState = {
   id: string
-  name: string
+  name?: string
   address?: string
   description?: string
   dateCommissioning?: string

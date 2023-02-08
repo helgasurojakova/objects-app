@@ -1,26 +1,27 @@
-import { Input, Textarea, Image, Stack, FormControl, FormLabel, Heading } from "@chakra-ui/react"
+import { Input, Textarea, Image, Stack, FormControl, FormLabel, Heading, Button } from "@chakra-ui/react"
+import { observer } from "mobx-react-lite"
 import React, { useEffect } from "react"
 import { useState } from "react"
+import { objectsStore } from "./App"
 import { ObjectState } from "./types"
 
-export const EditObject = (props: ObjectState) => {
-  const {
-      id,
-      name,
-      address,
-      description,
-      dateCommissioning,
-      image,
-  } = props
+export const EditObject = observer(({ id }: { id: string }) => {
+  const object = objectsStore.getObjectById(id)
 
   const [state, setState] = useState<ObjectState>({
-    id,
-    name,
-    address,
-    description,
-    dateCommissioning,
-    image,
+    id: id,
+    name: object?.name,
+    address: object?.address, 
+    description: object?.description,
+    dateCommissioning: object?.dateCommissioning,
+    image: object?.image,
   })
+
+  useEffect(() => {
+    if (object) {
+      setState(object)
+    }
+  }, [object])
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>, key: string) => {
     setState((v) => ({...v, [key]: event.target.value}))
@@ -33,9 +34,11 @@ export const EditObject = (props: ObjectState) => {
     }
   }
 
-  useEffect(() => {
-    setState(props)
-  }, [props])
+  const saveHandler = () => {
+    if (object) {
+      object.edit(state.name, state.address, state.description, state.dateCommissioning, state.image)
+    }
+  }
 
   return (
     <FormControl w='50%' borderWidth='1px' p='6' h='100vh' style={{overflowY: 'auto'}}>
@@ -51,7 +54,6 @@ export const EditObject = (props: ObjectState) => {
         <Input type="date" value={state.dateCommissioning || ''} onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleChange(event, 'dateCommissioning')}/>
         <FormLabel>Изображение</FormLabel>
         <Input
-          src={state.image || ''}
           type='file'
           accept="image/*"
           onChange={handleImageInputChange}
@@ -59,6 +61,7 @@ export const EditObject = (props: ObjectState) => {
         <FormLabel>Предпросмотр:</FormLabel>
         <Image src={state.image || ''} w='100%'  h={400} objectFit='cover'/>
       </Stack>
+      <Button onClick={saveHandler}>Сохранить</Button>
     </FormControl>
   )
-}
+})

@@ -6,7 +6,7 @@ import { ObjectState } from './types'
 import { observer } from 'mobx-react-lite'
 import { ObjectStore } from './store'
 
-const objectsStore = new ObjectStore()
+export const objectsStore = new ObjectStore()
 
 function App() {
   const [object, setObject] = useState<ObjectState>({
@@ -55,14 +55,7 @@ function App() {
           </Table>
         </TableContainer>
         {object.id ?
-          <EditObject 
-            id={object.id}
-            name={object.name}
-            address={object.address}
-            description={object.description}
-            dateCommissioning={object.dateCommissioning}
-            image={object.image}
-          />
+          <EditObject id={object.id}/>
           :
           <Center w='50%' borderWidth='1px' height='100vh'>
             <Heading size='md'>Выберите объект для редактирования.</Heading>

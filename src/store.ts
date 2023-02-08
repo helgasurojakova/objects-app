@@ -19,12 +19,12 @@ class Object {
     makeAutoObservable(this)
   }
 
-  edit (name: string, address?: string, description?: string, dateCommissioning?: string, image?: string) {
-    this.name = name
-    this.address = address
-    this.description = description
-    this.dateCommissioning = dateCommissioning
-    this.image = image
+  edit (name?: string, address?: string, description?: string, dateCommissioning?: string, image?: string) {
+    this.name = name!
+    this.address = address!
+    this.description = description!
+    this.dateCommissioning = dateCommissioning!
+    this.image = image!
   }
 }
 
@@ -50,6 +50,10 @@ class ObjectStore {
     const newObjects = this.objects
     newObjects.push(new Object(name))
     this.objects = newObjects
+  }
+
+  getObjectById(id: string) {
+    return this.objects.find(item => item.id === id)
   }
 }
 
