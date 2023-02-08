@@ -11,7 +11,7 @@ import {
   Center 
 } from '@chakra-ui/react'
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { CreateObject } from './CreateObject'
 import { EditObject } from './EditObject'
 import { ObjectType } from './types'
@@ -45,19 +45,20 @@ function App() {
               </Tr>
             </Thead>
             <Tbody>
-            {objectsSortedByName.map((item: ObjectType) => { 
-                return (
-                  <Tr key={item.id} className={`object-row${objectId === item.id ? '_active' : ''}`}>
-                    <Td onClick={() => handleClick(item.id)}>{item.name}</Td>
-                    <Td w={0}>
-                      <Button 
-                        onClick={()=> deleteHandler(item.id)}>
-                        Удалить
-                      </Button>
-                    </Td>
-                  </Tr>
-                )
-              })}
+              {objectsSortedByName.map((item: ObjectType) => { 
+                  return (
+                    <Tr key={item.id} className={`object-row${objectId === item.id ? '_active' : ''}`}>
+                      <Td onClick={() => handleClick(item.id)}>{item.name}</Td>
+                      <Td w={0}>
+                        <Button 
+                          onClick={()=> deleteHandler(item.id)}>
+                          Удалить
+                        </Button>
+                      </Td>
+                    </Tr>
+                  )
+                })
+              }
             </Tbody>
           </Table>
         </TableContainer>

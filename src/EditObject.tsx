@@ -10,13 +10,12 @@ import {
   Tooltip
 } from '@chakra-ui/react'
 
-import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { objectsStore } from './App'
 import { ObjectType } from './types'
 
-export const EditObject = observer(({ id }: { id: string }) => {
+export const EditObject = ({ id }: { id: string }) => {
   const object = objectsStore.getObjectById(id)
 
   const [state, setState] = useState<ObjectType>({
@@ -82,4 +81,4 @@ export const EditObject = observer(({ id }: { id: string }) => {
       </Stack>
     </FormControl>
   )
-})
+}
