@@ -2,21 +2,14 @@ import { Button, Table, TableContainer, Tbody, Td, Th, Thead, Tr, Heading, Cente
 import React, { useEffect, useState } from 'react'
 import { CreateObject } from './CreateObject'
 import { EditObject } from './EditObject'
-import { ObjectState } from './types'
+import { ObjectType } from './types'
 import { observer } from 'mobx-react-lite'
 import { ObjectStore } from './store'
 
 export const objectsStore = new ObjectStore()
 
 function App() {
-  const [object, setObject] = useState<ObjectState>({
-    id: "",
-    name: "",
-    address: "",
-    description: "",
-    dateCommissioning: "",
-    image: "",
-  })
+  const [objectId, setObjectId] = useState('')
 
   useEffect(() => {
     const rows = document.querySelectorAll('.object-row')
@@ -27,22 +20,15 @@ function App() {
         row.classList.add('active')
       })
     })
-  }, [object])
+  }, [objectId])
 
-  const handleClick = (item: ObjectState) => {
-    setObject(item)
+  const handleClick = (id: string) => {
+    setObjectId(id)
   }
 
   const deleteHandler = (id: string) => {
     objectsStore.delete(id)
-    setObject({
-      id: "",
-      name: "",
-      address: "",
-      description: "",
-      dateCommissioning: "",
-      image: "",
-    })
+    setObjectId('')
   }
 
   return (
@@ -57,10 +43,10 @@ function App() {
               </Tr>
             </Thead>
             <Tbody>
-            {objectsStore.objects.map((item: ObjectState) => { 
+            {objectsStore.objects.map((item: ObjectType) => { 
                 return (
                   <Tr key={item.id} className="object-row">
-                    <Td onClick={() => handleClick(item)}>{item.name}</Td>
+                    <Td onClick={() => handleClick(item.id)}>{item.name}</Td>
                     <Td w={0}>
                       <Button 
                         onClick={()=> deleteHandler(item.id)}>
@@ -73,8 +59,8 @@ function App() {
             </Tbody>
           </Table>
         </TableContainer>
-        {object.id ?
-          <EditObject id={object.id}/>
+        {objectId ?
+          <EditObject id={objectId}/>
           :
           <Center w='50%' borderWidth='1px' height='100vh'>
             <Heading size='md'>Выберите объект для редактирования.</Heading>

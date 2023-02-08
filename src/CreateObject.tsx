@@ -16,11 +16,11 @@ import { useDisclosure } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { ObjectStore } from './store'
 
-type ObjectsList = {
+type CreateObjectProps = {
   objectsStore: ObjectStore
 }
 
-export const CreateObject = (props: ObjectsList) => {
+export const CreateObject = (props: CreateObjectProps) => {
   const { objectsStore } = props
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [name, setName] = useState('')

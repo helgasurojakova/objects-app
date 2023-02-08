@@ -3,12 +3,12 @@ import { observer } from "mobx-react-lite"
 import React, { useEffect } from "react"
 import { useState } from "react"
 import { objectsStore } from "./App"
-import { ObjectState } from "./types"
+import { ObjectType } from "./types"
 
 export const EditObject = observer(({ id }: { id: string }) => {
   const object = objectsStore.getObjectById(id)
 
-  const [state, setState] = useState<ObjectState>({
+  const [state, setState] = useState<ObjectType>({
     id: id,
     name: object?.name,
     address: object?.address, 
@@ -62,7 +62,7 @@ export const EditObject = observer(({ id }: { id: string }) => {
           <Image src={state.image || ''} w='100%'  h={400} objectFit='cover'/>
           </>
         }
-        <Button colorScheme='blue' onClick={saveHandler} style={{width: 'fit-content'}}>Сохранить</Button>
+        <Button colorScheme='blue' onClick={saveHandler} style={{width: 'fit-content'}}>Сохранить изменения</Button>
       </Stack>
     </FormControl>
   )

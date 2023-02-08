@@ -1,4 +1,4 @@
-export type ObjectState = {
+export type ObjectType = {
   id: string
   name?: string
   address?: string
