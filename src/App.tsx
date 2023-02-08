@@ -18,6 +18,17 @@ function App() {
     image: "",
   })
 
+  useEffect(() => {
+    const rows = document.querySelectorAll('.object-row')
+
+    rows.forEach((row) => {
+      row.addEventListener('click', () => {
+        rows.forEach((r) => r.classList.remove('active'))
+        row.classList.add('active')
+      })
+    })
+  }, [object])
+
   const handleClick = (item: ObjectState) => {
     setObject(item)
   }
@@ -40,7 +51,7 @@ function App() {
             <Tbody>
             {objectsStore.objects.map((item: ObjectState) => { 
                 return (
-                  <Tr key={item.id}>
+                  <Tr key={item.id} className="object-row">
                     <Td onClick={() => handleClick(item)}>{item.name}</Td>
                     <Td w={0}>
                       <Button 

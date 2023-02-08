@@ -58,10 +58,14 @@ export const EditObject = observer(({ id }: { id: string }) => {
           accept="image/*"
           onChange={handleImageInputChange}
         />
-        <FormLabel>Предпросмотр:</FormLabel>
-        <Image src={state.image || ''} w='100%'  h={400} objectFit='cover'/>
+        {state.image &&
+          <>
+          <FormLabel>Предпросмотр:</FormLabel>
+          <Image src={state.image || ''} w='100%'  h={400} objectFit='cover'/>
+          </>
+        }
+        <Button colorScheme='blue' onClick={saveHandler} style={{width: 'fit-content'}}>Сохранить</Button>
       </Stack>
-      <Button onClick={saveHandler}>Сохранить</Button>
     </FormControl>
   )
 })

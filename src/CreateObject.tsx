@@ -36,7 +36,7 @@ export const CreateObject = (props: ObjectsList) => {
   
   return (
     <>
-      <Button onClick={onOpen} w='100%'>Добавить объект</Button>
+      <Button colorScheme='blue' onClick={onOpen} w='100%' m='24px' style={{width: 'fit-content'}}>Добавить объект</Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay/>
         <ModalContent>
